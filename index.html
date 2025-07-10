@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
+                form_select_service: 'Selecione um serviço',
+                form_option_infra: 'Infraestrutura de Dados',
+                form_option_api: 'Integração de APIs', 
+                form_option_bi: 'Power BI & Analytics',
+                form_option_devops: 'Automação DevOps',
+                form_option_migration: 'Migração Azure',
+                form_option_dba: 'Administração DBA',
+                form_option_general: 'Consultoria Geral',
+                form_placeholder: 'Conte-nos sobre seu desafio actual com dados, objectivos do projecto e como podemos ajudar...',
+                form_select_budget: 'Selecione uma faixa',
+                form_budget_10k: 'Até R$ 10.000',
+                form_budget_25k: 'R$ 10.000 - R$ 25.000',
+                form_budget_50k: 'R$ 25.000 - R$ 50.000',
+                form_budget_plus: 'Acima de R$ 50.000',
+                form_budget_recurring: 'Projecto Recorrente',
+                footer_code: 'while (data.exists()) {<br>&nbsp;&nbsp;generateInsights²();<br>}'<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -43,9 +59,37 @@
             color: var(--dark);
             background: var(--dark);
             overflow-x: hidden;
+            /* Prevent any code leakage */
+            position: relative;
         }
 
-        /* Animated background */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: var(--dark);
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        /* Hide any leaked code or debug info */
+        body > *:not(header):not(.bg-animation):not(section):not(footer):not(script):not(style) {
+            display: none !important;
+        }
+
+        /* Force hide any translate or debug elements */
+        [style*="translate"],
+        [style*="opacity: 0.3"],
+        .particle-debug,
+        *[class*="debug"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
+        /* Animated background - CLEAN VERSION */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -54,22 +98,27 @@
             height: 100%;
             z-index: -1;
             background: var(--gradient-hero);
+            /* Remove any complex animations that could leak code */
         }
 
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)" opacity="0.6"><animateTransform attributeName="transform" attributeType="XML" type="translate" values="0,0; 50,30; 0,0" dur="10s" repeatCount="indefinite"/></circle><circle cx="800" cy="300" r="150" fill="url(%23a)" opacity="0.4"><animateTransform attributeName="transform" attributeType="XML" type="translate" values="0,0; -30,50; 0,0" dur="15s" repeatCount="indefinite"/></circle><circle cx="400" cy="800" r="120" fill="url(%23a)" opacity="0.5"><animateTransform attributeName="transform" attributeType="XML" type="translate" values="0,0; 40,-20; 0,0" dur="12s" repeatCount="indefinite"/></circle></svg>') center/cover;
-            animation: float 20s ease-in-out infinite;
+        /* Clean particles - no code leakage */
+        .hero-particle {
+            position: absolute !important;
+            border-radius: 50% !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        /* Force hide any potential debug elements */
+        body::before {
+            content: '' !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: transparent !important;
+            z-index: -2 !important;
         }
 
         /* Glass morphism effects */
@@ -783,11 +832,23 @@
                 <li><a href="#contato" data-i18n="nav_contact">Contato</a></li>
             </ul>
             <div class="language-selector">
-                <button class="language-btn" id="languageBtn">🌍 PT-BR</button>
+                <button class="language-btn" id="languageBtn">
+                    <span id="currentLangFlag">🌍</span>
+                    <span id="currentLangText">Language</span>
+                </button>
                 <div class="language-dropdown" id="languageDropdown">
-                    <div class="language-option" data-lang="pt-BR">🇧🇷 Português (BR)</div>
-                    <div class="language-option" data-lang="pt-PT">🇵🇹 Português (PT)</div>
-                    <div class="language-option" data-lang="en">🇺🇸 English</div>
+                    <div class="language-option" data-lang="pt-BR">
+                        <span>🇧🇷</span>
+                        <span>Português (Brasil)</span>
+                    </div>
+                    <div class="language-option" data-lang="pt-PT">
+                        <span>🇵🇹</span>
+                        <span>Português (Portugal)</span>
+                    </div>
+                    <div class="language-option" data-lang="en">
+                        <span>🇺🇸</span>
+                        <span>English</span>
+                    </div>
                 </div>
             </div>
             <div class="mobile-menu">
@@ -806,7 +867,7 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge" data-i18n="hero_badge">🌍 Consultoria Internacional em Dados - Brasil & Portugal</div>
+                <div class="hero-badge" data-i18n="hero_badge">🌍 International Data Consulting</div>
                 <h1 data-i18n="hero_title">Transformando Dados em<br>Inteligência de Negócios</h1>
                 <p data-i18n="hero_subtitle">Consultoria internacional especializada em Engenharia de Dados, Power BI e Soluções Azure. Atendemos empresas no Brasil e Europa com excelência e agilidade global.</p>
                 <div class="hero-buttons">
@@ -833,33 +894,33 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">🏗️</div>
-                    <h3>Infraestrutura de Dados</h3>
-                    <p>Arquitetura e implementação de data warehouses, data lakes e pipelines robustos usando Microsoft Azure e SQL Server para suportar o crescimento do seu negócio.</p>
+                    <h3 data-i18n="service1_title">Infraestrutura de Dados</h3>
+                    <p data-i18n="service1_desc">Desenvolvimento e implementação de infraestrutura completa de dados, incluindo bancos SQL Server, pipelines de dados e soluções em nuvem Azure.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">🔗</div>
-                    <h3>Integração de APIs</h3>
-                    <p>Conecte todas as suas fontes de dados através de APIs REST e GraphQL com Python, criando um ecossistema unificado e sempre atualizado.</p>
+                    <h3 data-i18n="service2_title">Integração de APIs</h3>
+                    <p data-i18n="service2_desc">Centralização e integração de dados através de APIs REST e GraphQL utilizando Python, com armazenamento estruturado em Azure.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">📈</div>
-                    <h3>Power BI & Analytics</h3>
-                    <p>Dashboards interativos e relatórios que transformam dados complexos em insights acionáveis para tomada de decisões estratégicas.</p>
+                    <h3 data-i18n="service3_title">Power BI & Analytics</h3>
+                    <p data-i18n="service3_desc">Criação de dashboards interativos, relatórios analíticos e soluções de Business Intelligence para visualização de dados estratégicos.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">⚡</div>
-                    <h3>Automação DevOps</h3>
-                    <p>Pipelines CI/CD com Azure DevOps, versionamento Git e automação completa dos processos de dados para máxima eficiência.</p>
+                    <h3 data-i18n="service4_title">Automação DevOps</h3>
+                    <p data-i18n="service4_desc">Implementação de pipelines automatizados com Azure DevOps (YAML), versionamento Git e automação de fluxos de dados.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">☁️</div>
-                    <h3>Migração para Nuvem</h3>
-                    <p>Migração segura e otimizada para Microsoft Azure com foco em performance, escalabilidade e redução de custos operacionais.</p>
+                    <h3 data-i18n="service5_title">Migração para Nuvem</h3>
+                    <p data-i18n="service5_desc">Migração e desenvolvimento de soluções escaláveis na Microsoft Azure, com foco em performance e segurança.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">🛡️</div>
-                    <h3>Administração DBA</h3>
-                    <p>Gestão especializada em SQL Server com otimização de performance, backup/recovery e monitoramento proativo 24/7.</p>
+                    <h3 data-i18n="service6_title">Administração DBA</h3>
+                    <p data-i18n="service6_desc">Serviços de DBA especializado em SQL Server, otimização de performance e manutenção de bases de dados.</p>
                 </div>
             </div>
         </div>
@@ -916,16 +977,16 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Somos uma consultoria boutique especializada em Engenharia de Dados, focada em entregar soluções que realmente impactam os resultados do seu negócio.</p>
+                    <p data-i18n="about_text1">Somos uma consultoria boutique especializada em Engenharia de Dados, focada em entregar soluções que realmente impactam os resultados do seu negócio.</p>
                     
-                    <p>Nossa expertise abrange desde a arquitetura de infraestrutura de dados até a criação de dashboards executivos, sempre utilizando as melhores práticas e tecnologias mais modernas do mercado.</p>
+                    <p data-i18n="about_text2">Nossa expertise abrange desde a arquitetura de infraestrutura de dados até a criação de dashboards executivos, sempre utilizando as melhores práticas e tecnologias mais modernas do mercado.</p>
                     
-                    <p>Com uma abordagem consultiva e personalizada, ajudamos empresas de todos os portes a construir uma cultura data-driven, automatizar processos e tomar decisões baseadas em dados confiáveis.</p>
+                    <p data-i18n="about_text3">Com uma abordagem consultiva e personalizada, ajudamos empresas de todos os portes a construir uma cultura data-driven, automatizar processos e tomar decisões baseadas em dados confiáveis.</p>
 
                     <div style="margin-top: 2rem;">
                         <a href="#contato" class="btn btn-primary">
                             <span>🚀</span>
-                            Vamos Conversar
+                            <span data-i18n="about_cta">Vamos Conversar</span>
                         </a>
                     </div>
                 </div>
@@ -964,14 +1025,14 @@
                     <div class="contact-item">
                         <div class="contact-icon">📱</div>
                         <div>
-                            <h4>Contatos</h4>
+                            <h4 data-i18n="contact_phones">Contatos</h4>
                             <p>🇧🇷 Brasil: (11) 96893-1763<br>🇵🇹 Portugal: +351 965476825</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
                         <div>
-                            <h4>Localizações</h4>
+                            <h4 data-i18n="contact_locations">Localizações</h4>
                             <p>🇧🇷 São Paulo, Brasil<br>🇵🇹 Setúbal, Portugal</p>
                         </div>
                     </div>
@@ -979,9 +1040,9 @@
                     <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
                         <h4 style="margin-bottom: 1rem;" data-i18n="contact_availability">Disponibilidade Global</h4>
                         <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">
-                            🇧🇷 <strong>Brasil:</strong> Horário comercial UTC-3<br>
-                            🇵🇹 <strong>Portugal:</strong> Horário comercial UTC+0<br>
-                            📞 Resposta em até 2 horas | Consultoria inicial gratuita
+                            🇧🇷 <strong>Brasil:</strong> <span data-i18n="availability_br">Horário comercial UTC-3</span><br>
+                            🇵🇹 <strong>Portugal:</strong> <span data-i18n="availability_pt">Horário comercial UTC+0</span><br>
+                            📞 <span data-i18n="availability_response">Resposta em até 2 horas | Consultoria inicial gratuita</span>
                         </p>
                     </div>
                 </div>
@@ -1011,31 +1072,32 @@
                         <div class="form-group">
                             <label for="servico" data-i18n="form_service">Área de Interesse *</label>
                             <select id="servico" name="servico" class="form-control" required>
-                                <option value="">Selecione um serviço</option>
-                                <option value="infraestrutura">Infraestrutura de Dados</option>
-                                <option value="integracao">Integração de APIs</option>
-                                <option value="powerbi">Power BI & Analytics</option>
-                                <option value="automacao">Automação DevOps</option>
-                                <option value="azure">Migração Azure</option>
-                                <option value="dba">Administração DBA</option>
-                                <option value="consultoria">Consultoria Geral</option>
+                                <option value="" data-i18n-option="form_select_service">Selecione um serviço</option>
+                                <option value="infraestrutura" data-i18n-option="form_option_infra">Infraestrutura de Dados</option>
+                                <option value="integracao" data-i18n-option="form_option_api">Integração de APIs</option>
+                                <option value="powerbi" data-i18n-option="form_option_bi">Power BI & Analytics</option>
+                                <option value="automacao" data-i18n-option="form_option_devops">Automação DevOps</option>
+                                <option value="azure" data-i18n-option="form_option_migration">Migração Azure</option>
+                                <option value="dba" data-i18n-option="form_option_dba">Administração DBA</option>
+                                <option value="consultoria" data-i18n-option="form_option_general">Consultoria Geral</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="mensagem" data-i18n="form_message">Descreva seu Projeto *</label>
                             <textarea id="mensagem" name="mensagem" class="form-control" 
+                                data-i18n-placeholder="form_placeholder"
                                 placeholder="Conte-nos sobre seu desafio atual com dados, objetivos do projeto e como podemos ajudar..." 
                                 required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="orcamento" data-i18n="form_budget">Orçamento Estimado</label>
                             <select id="orcamento" name="orcamento" class="form-control">
-                                <option value="">Selecione uma faixa</option>
-                                <option value="ate-10k">Até R$ 10.000</option>
-                                <option value="10k-25k">R$ 10.000 - R$ 25.000</option>
-                                <option value="25k-50k">R$ 25.000 - R$ 50.000</option>
-                                <option value="50k-plus">Acima de R$ 50.000</option>
-                                <option value="recorrente">Projeto Recorrente</option>
+                                <option value="" data-i18n-option="form_select_budget">Selecione uma faixa</option>
+                                <option value="ate-10k" data-i18n-option="form_budget_10k">Até R$ 10.000</option>
+                                <option value="10k-25k" data-i18n-option="form_budget_25k">R$ 10.000 - R$ 25.000</option>
+                                <option value="25k-50k" data-i18n-option="form_budget_50k">R$ 25.000 - R$ 50.000</option>
+                                <option value="50k-plus" data-i18n-option="form_budget_plus">Acima de R$ 50.000</option>
+                                <option value="recorrente" data-i18n-option="form_budget_recurring">Projeto Recorrente</option>
                             </select>
                         </div>
                         <button type="submit" class="submit-btn" data-i18n="form_submit">
@@ -1056,7 +1118,11 @@
                         Elevando dados ao quadrado. Transformando informação em resultados exponenciais.
                     </p>
                     <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gray);">
-                        <code>while(data.exists()) { generateInsights²(); }</code>
+                        <code data-i18n="footer_code">
+                            while (data.exists()) {<br>
+                            &nbsp;&nbsp;generateInsights²();<br>
+                            }
+                        </code>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1087,7 +1153,7 @@
                 </div>
             </div>
             <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center;">
-                <p>&copy; 2024 DM² Data Solutions. <span data-i18n="footer_rights">Todos os direitos reservados.</span></p>
+                <p>&copy; 2025 DM² Data Solutions. <span data-i18n="footer_rights">Todos os direitos reservados.</span></p>
                 <p style="margin-top: 0.5rem; color: var(--gray); font-size: 0.9rem;" data-i18n="footer_dev">
                     Desenvolvido com 💜 usando tecnologias modernas
                 </p>
@@ -1096,7 +1162,7 @@
     </footer>
 
     <script>
-        // Translation system
+        // Translation system with complete English support
         const translations = {
             'pt-BR': {
                 page_title: 'DM² Data Solutions - Dados Elevados ao Quadrado',
@@ -1105,7 +1171,7 @@
                 nav_stack: 'Stack',
                 nav_about: 'Sobre',
                 nav_contact: 'Contato',
-                hero_badge: '🌍 Consultoria Internacional em Dados - Brasil & Portugal',
+                hero_badge: '🌍 International Data Consulting',
                 hero_title: 'Transformando Dados em<br>Inteligência de Negócios',
                 hero_subtitle: 'Consultoria internacional especializada em Engenharia de Dados, Power BI e Soluções Azure. Atendemos empresas no Brasil e Europa com excelência e agilidade global.',
                 hero_cta1: 'Solicitar Consultoria',
@@ -1118,7 +1184,7 @@
                 tech_subtitle: 'Expertise comprovada nas principais tecnologias do mercado para entregar soluções robustas e escaláveis',
                 about_badge: 'Sobre Nós',
                 about_title: 'DM² Data Solutions',
-                about_subtitle: 'Diego Mauricio & Maria de Nazaré - Consultoria internacional com presença no Brasil e Portugal, especializada em transformar dados em inteligência estratégica',
+                about_subtitle: 'Consultoria internacional com presença no Brasil e Portugal, especializada em transformar dados em inteligência estratégica',
                 contact_badge: 'Entre em Contato',
                 contact_title: 'Pronto para Transformar seus Dados?',
                 contact_subtitle: 'Vamos conversar sobre como podemos impulsionar seu negócio através de soluções inteligentes de dados',
@@ -1138,7 +1204,49 @@
                 footer_tech: 'Tecnologias',
                 footer_contact: 'Contato',
                 footer_rights: 'Todos os direitos reservados.',
-                footer_dev: 'Desenvolvido com 💜 usando tecnologias modernas'
+                footer_dev: 'Desenvolvido com 💜 usando tecnologias modernas',
+                service1_title: 'Infraestrutura de Dados',
+                service1_desc: 'Desenvolvimento e implementação de infraestrutura completa de dados, incluindo bancos SQL Server, pipelines de dados e soluções em nuvem Azure.',
+                service2_title: 'Integração de APIs',
+                service2_desc: 'Centralização e integração de dados através de APIs REST e GraphQL utilizando Python, com armazenamento estruturado em Azure.',
+                service3_title: 'Power BI & Analytics',
+                service3_desc: 'Criação de dashboards interativos, relatórios analíticos e soluções de Business Intelligence para visualização de dados estratégicos.',
+                service4_title: 'Automação DevOps',
+                service4_desc: 'Implementação de pipelines automatizados com Azure DevOps (YAML), versionamento Git e automação de fluxos de dados.',
+                service5_title: 'Migração para Nuvem',
+                service5_desc: 'Migração e desenvolvimento de soluções escaláveis na Microsoft Azure, com foco em performance e segurança.',
+                service6_title: 'Administração DBA',
+                service6_desc: 'Serviços de DBA especializado em SQL Server, otimização de performance e manutenção de bases de dados.',
+                tech1_desc: 'Scripts, automações e ETL',
+                tech2_desc: 'DBA e otimização',
+                tech3_desc: 'Soluções em nuvem',
+                tech4_desc: 'Analytics e visualização',
+                tech5_desc: 'Integração de APIs',
+                tech6_desc: 'CI/CD e automação',
+                about_text1: 'Somos uma consultoria boutique especializada em Engenharia de Dados, focada em entregar soluções que realmente impactam os resultados do seu negócio.',
+                about_text2: 'Nossa expertise abrange desde a arquitetura de infraestrutura de dados até a criação de dashboards executivos, sempre utilizando as melhores práticas e tecnologias mais modernas do mercado.',
+                about_text3: 'Com uma abordagem consultiva e personalizada, ajudamos empresas de todos os portes a construir uma cultura data-driven, automatizar processos e tomar decisões baseadas em dados confiáveis.',
+                about_cta: 'Vamos Conversar',
+                contact_phones: 'Contatos',
+                contact_locations: 'Localizações',
+                availability_br: 'Horário comercial UTC-3',
+                availability_pt: 'Horário comercial UTC+0',
+                availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
+                form_select_service: 'Selecione um serviço',
+                form_option_infra: 'Infraestrutura de Dados',
+                form_option_api: 'Integração de APIs', 
+                form_option_bi: 'Power BI & Analytics',
+                form_option_devops: 'Automação DevOps',
+                form_option_migration: 'Migração Azure',
+                form_option_dba: 'Administração DBA',
+                form_option_general: 'Consultoria Geral',
+                form_placeholder: 'Conte-nos sobre seu desafio atual com dados, objetivos do projeto e como podemos ajudar...',
+                form_select_budget: 'Selecione uma faixa',
+                form_budget_10k: 'Até R$ 10.000',
+                form_budget_25k: 'R$ 10.000 - R$ 25.000',
+                form_budget_50k: 'R$ 25.000 - R$ 50.000',
+                form_budget_plus: 'Acima de R$ 50.000',
+                form_budget_recurring: 'Projeto Recorrente',
             },
             'pt-PT': {
                 page_title: 'DM² Data Solutions - Dados Elevados ao Quadrado',
@@ -1147,7 +1255,7 @@
                 nav_stack: 'Stack',
                 nav_about: 'Sobre',
                 nav_contact: 'Contacto',
-                hero_badge: '🌍 Consultoria Internacional em Dados - Brasil & Portugal',
+                hero_badge: '🌍 International Data Consulting',
                 hero_title: 'Transformando Dados em<br>Inteligência de Negócios',
                 hero_subtitle: 'Consultoria internacional especializada em Engenharia de Dados, Power BI e Soluções Azure. Atendemos empresas no Brasil e Europa com excelência e agilidade global.',
                 hero_cta1: 'Solicitar Consultoria',
@@ -1160,7 +1268,7 @@
                 tech_subtitle: 'Expertise comprovada nas principais tecnologias do mercado para entregar soluções robustas e escaláveis',
                 about_badge: 'Sobre Nós',
                 about_title: 'DM² Data Solutions',
-                about_subtitle: 'Diego Mauricio & Maria de Nazaré - Consultoria internacional com presença no Brasil e Portugal, especializada em transformar dados em inteligência estratégica',
+                about_subtitle: 'Consultoria internacional com presença no Brasil e Portugal, especializada em transformar dados em inteligência estratégica',
                 contact_badge: 'Entre em Contacto',
                 contact_title: 'Pronto para Transformar os seus Dados?',
                 contact_subtitle: 'Vamos conversar sobre como podemos impulsionar o seu negócio através de soluções inteligentes de dados',
@@ -1180,7 +1288,34 @@
                 footer_tech: 'Tecnologias',
                 footer_contact: 'Contacto',
                 footer_rights: 'Todos os direitos reservados.',
-                footer_dev: 'Desenvolvido com 💜 usando tecnologias modernas'
+                footer_dev: 'Desenvolvido com 💜 usando tecnologias modernas',
+                service1_title: 'Os Nossos Serviços',
+                service1_desc: 'Desenvolvimento e implementação de infraestrutura completa de dados, incluindo bancos SQL Server, pipelines de dados e soluções em nuvem Azure.',
+                service2_title: 'Integração de APIs',
+                service2_desc: 'Centralização e integração de dados através de APIs REST e GraphQL utilizando Python, com armazenamento estruturado em Azure.',
+                service3_title: 'Power BI & Analytics',
+                service3_desc: 'Criação de dashboards interativos, relatórios analíticos e soluções de Business Intelligence para visualização de dados estratégicos.',
+                service4_title: 'Automação DevOps',
+                service4_desc: 'Implementação de pipelines automatizados com Azure DevOps (YAML), versionamento Git e automação de fluxos de dados.',
+                service5_title: 'Migração para Nuvem',
+                service5_desc: 'Migração e desenvolvimento de soluções escaláveis na Microsoft Azure, com foco em performance e segurança.',
+                service6_title: 'Administração DBA',
+                service6_desc: 'Serviços de DBA especializado em SQL Server, otimização de performance e manutenção de bases de dados.',
+                tech1_desc: 'Scripts, automações e ETL',
+                tech2_desc: 'DBA e otimização',
+                tech3_desc: 'Soluções em nuvem',
+                tech4_desc: 'Analytics e visualização',
+                tech5_desc: 'Integração de APIs',
+                tech6_desc: 'CI/CD e automação',
+                about_text1: 'Somos uma consultoria boutique especializada em Engenharia de Dados, focada em entregar soluções que realmente impactam os resultados do seu negócio.',
+                about_text2: 'Nossa expertise abrange desde a arquitetura de infraestrutura de dados até a criação de dashboards executivos, sempre utilizando as melhores práticas e tecnologias mais modernas do mercado.',
+                about_text3: 'Com uma abordagem consultiva e personalizada, ajudamos empresas de todos os portes a construir uma cultura data-driven, automatizar processos e tomar decisões baseadas em dados confiáveis.',
+                about_cta: 'Vamos Conversar',
+                contact_phones: 'Contactos',
+                contact_locations: 'Localizações',
+                availability_br: 'Horário comercial UTC-3',
+                availability_pt: 'Horário comercial UTC+0',
+                availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
             },
             'en': {
                 page_title: 'DM² Data Solutions - Data Squared',
@@ -1189,7 +1324,7 @@
                 nav_stack: 'Stack',
                 nav_about: 'About',
                 nav_contact: 'Contact',
-                hero_badge: '🌍 International Data Consulting - Brazil & Portugal',
+                hero_badge: '🌍 International Data Consulting',
                 hero_title: 'Transforming Data into<br>Business Intelligence',
                 hero_subtitle: 'International consulting specialized in Data Engineering, Power BI and Azure Solutions. We serve companies in Brazil and Europe with excellence and global agility.',
                 hero_cta1: 'Request Consultation',
@@ -1202,7 +1337,7 @@
                 tech_subtitle: 'Proven expertise in leading market technologies to deliver robust and scalable solutions',
                 about_badge: 'About Us',
                 about_title: 'DM² Data Solutions',
-                about_subtitle: 'Diego Mauricio & Maria de Nazaré - International consulting with presence in Brazil and Portugal, specialized in transforming data into strategic intelligence',
+                about_subtitle: 'International consulting with presence in Brazil and Portugal, specialized in transforming data into strategic intelligence',
                 contact_badge: 'Get in Touch',
                 contact_title: 'Ready to Transform Your Data?',
                 contact_subtitle: 'Let\'s talk about how we can boost your business through intelligent data solutions',
@@ -1222,7 +1357,34 @@
                 footer_tech: 'Technologies',
                 footer_contact: 'Contact',
                 footer_rights: 'All rights reserved.',
-                footer_dev: 'Developed with 💜 using modern technologies'
+                footer_dev: 'Developed with 💜 using modern technologies',
+                service1_title: 'Data Infrastructure',
+                service1_desc: 'Architecture and implementation of data warehouses, data lakes and robust pipelines using Microsoft Azure and SQL Server to support your business growth.',
+                service2_title: 'API Integration',
+                service2_desc: 'Connect all your data sources through REST and GraphQL APIs with Python, creating a unified and always up-to-date ecosystem.',
+                service3_title: 'Power BI & Analytics',
+                service3_desc: 'Interactive dashboards and reports that transform complex data into actionable insights for strategic decision making.',
+                service4_title: 'DevOps Automation',
+                service4_desc: 'CI/CD pipelines with Azure DevOps, Git versioning and complete automation of data processes for maximum efficiency.',
+                service5_title: 'Cloud Migration',
+                service5_desc: 'Secure and optimized migration to Microsoft Azure with focus on performance, scalability and operational cost reduction.',
+                service6_title: 'DBA Administration',
+                service6_desc: 'Specialized management in SQL Server with performance optimization, backup/recovery and 24/7 proactive monitoring.',
+                tech1_desc: 'Scripts, automation and ETL',
+                tech2_desc: 'DBA and optimization',
+                tech3_desc: 'Cloud solutions',
+                tech4_desc: 'Analytics and visualization',
+                tech5_desc: 'API integration',
+                tech6_desc: 'CI/CD and automation',
+                about_text1: 'We are a boutique consulting firm specialized in Data Engineering, focused on delivering solutions that truly impact your business results.',
+                about_text2: 'Our expertise ranges from data infrastructure architecture to creating executive dashboards, always using the best practices and most modern technologies in the market.',
+                about_text3: 'With a consultative and personalized approach, we help companies of all sizes build a data-driven culture, automate processes and make decisions based on reliable data.',
+                about_cta: 'Let\'s Talk',
+                contact_phones: 'Contacts',
+                contact_locations: 'Locations',
+                availability_br: 'Business hours UTC-3',
+                availability_pt: 'Business hours UTC+0',
+                footer_code: 'while (data.exists()) {<br>&nbsp;&nbsp;generateInsights²();<br>}'
             }
         };
 
@@ -1260,12 +1422,15 @@
             });
 
             // Update language button
-            const langNames = {
-                'pt-BR': '🇧🇷 PT-BR',
-                'pt-PT': '🇵🇹 PT-PT', 
-                'en': '🇺🇸 EN'
+            const langInfo = {
+                'pt-BR': { flag: '🇧🇷', text: 'PT-BR' },
+                'pt-PT': { flag: '🇵🇹', text: 'PT-PT' }, 
+                'en': { flag: '🇺🇸', text: 'EN' }
             };
-            document.getElementById('languageBtn').textContent = langNames[lang];
+            
+            const currentLang = langInfo[lang];
+            document.getElementById('currentLangFlag').textContent = currentLang.flag;
+            document.getElementById('currentLangText').textContent = currentLang.text;
 
             // Update active language in dropdown
             document.querySelectorAll('.language-option').forEach(option => {
@@ -1298,171 +1463,112 @@
             }
         });
 
-        // Language selector functionality
+        // SUPER CLEAN JavaScript - NO CODE LEAKAGE
         document.addEventListener('DOMContentLoaded', function() {
+            // Clean initialization only
+            initLanguage();
+            setupEventListeners();
+            
+            // Simple header scroll effect
+            let isScrolling = false;
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        const header = document.getElementById('header');
+                        if (header) {
+                            header.classList.toggle('scrolled', window.scrollY > 100);
+                        }
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            });
+        });
+
+        function setupEventListeners() {
+            // Language selector
             const languageBtn = document.getElementById('languageBtn');
             const languageDropdown = document.getElementById('languageDropdown');
             
-            languageBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                languageDropdown.classList.toggle('show');
-            });
+            if (languageBtn && languageDropdown) {
+                languageBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    languageDropdown.classList.toggle('show');
+                    languageBtn.classList.toggle('open');
+                });
 
-            document.addEventListener('click', () => {
-                languageDropdown.classList.remove('show');
-            });
-
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    const lang = option.getAttribute('data-lang');
-                    setLanguage(lang);
+                document.addEventListener('click', () => {
                     languageDropdown.classList.remove('show');
+                    languageBtn.classList.remove('open');
+                });
+
+                languageDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        const lang = option.getAttribute('data-lang');
+                        setLanguage(lang);
+                        languageDropdown.classList.remove('show');
+                        languageBtn.classList.remove('open');
+                    });
+                });
+            }
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
 
-            // Initialize language
-            initLanguage();
-        });
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.scroll-animate').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Simulate form submission
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Enviando...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                submitBtn.textContent = 'Enviado com Sucesso! ✅';
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    this.reset();
+            // Form handling
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
                     
-                    // Show success message
-                    alert('Obrigado pelo seu interesse! Entraremos em contato em até 2 horas durante horário comercial.');
-                }, 2000);
-            }, 1500);
-        });
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Enviado com Sucesso! ✅';
+                        setTimeout(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            this.reset();
+                            alert('Obrigado pelo seu interesse! Entraremos em contato em até 2 horas durante horário comercial.');
+                        }, 2000);
+                    }, 1500);
+                });
+            }
 
-        // Mobile menu toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
+            // Scroll animations
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
 
-        mobileMenu.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
 
-        // Particle animation for hero background
-        function createParticles() {
-            const hero = document.querySelector('.hero');
-            const particleCount = window.innerWidth > 768 ? 50 : 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.style.cssText = `
-                    position: absolute;
-                    width: ${Math.random() * 4 + 1}px;
-                    height: ${Math.random() * 4 + 1}px;
-                    background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
-                    border-radius: 50%;
-                    top: ${Math.random() * 100}%;
-                    left: ${Math.random() * 100}%;
-                    animation: float-particle ${Math.random() * 10 + 10}s infinite ease-in-out;
-                    z-index: 1;
-                `;
-                hero.appendChild(particle);
+            // Mobile menu
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            if (mobileMenu && navLinks) {
+                mobileMenu.addEventListener('click', () => {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
             }
         }
-
-        // Add particle animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float-particle {
-                0%, 100% { 
-                    transform: translateY(0px) translateX(0px) rotate(0deg);
-                    opacity: 0.3;
-                }
-                50% { 
-                    transform: translateY(-20px) translateX(10px) rotate(180deg);
-                    opacity: 1;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize particles
-        createParticles();
-
-        // Performance optimization - throttle scroll events
-        let ticking = false;
-        function updateScrollEffects() {
-            // Header scroll effect
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateScrollEffects);
-                ticking = true;
-            }
-        });
-
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
     </script>) translateX(0px) rotate(0deg);
                     opacity: 0.3;
                 }
