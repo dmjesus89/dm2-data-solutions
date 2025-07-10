@@ -1,20 +1,4 @@
-availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
-                form_select_service: 'Selecione um serviço',
-                form_option_infra: 'Infraestrutura de Dados',
-                form_option_api: 'Integração de APIs', 
-                form_option_bi: 'Power BI & Analytics',
-                form_option_devops: 'Automação DevOps',
-                form_option_migration: 'Migração Azure',
-                form_option_dba: 'Administração DBA',
-                form_option_general: 'Consultoria Geral',
-                form_placeholder: 'Conte-nos sobre seu desafio actual com dados, objectivos do projecto e como podemos ajudar...',
-                form_select_budget: 'Selecione uma faixa',
-                form_budget_10k: 'Até R$ 10.000',
-                form_budget_25k: 'R$ 10.000 - R$ 25.000',
-                form_budget_50k: 'R$ 25.000 - R$ 50.000',
-                form_budget_plus: 'Acima de R$ 50.000',
-                form_budget_recurring: 'Projecto Recorrente',
-                footer_code: 'while (data.exists()) {<br>&nbsp;&nbsp;generateInsights²();<br>}'<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -59,32 +43,34 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
             color: var(--dark);
             background: var(--dark);
             overflow-x: hidden;
-            /* Prevent any code leakage */
             position: relative;
         }
 
+        /* FORÇA OCULTAR QUALQUER CÓDIGO VAZADO */
         body::after {
             content: '';
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             right: 0;
-            height: 50px;
+            height: 60px;
             background: var(--dark);
-            z-index: 9999;
+            z-index: 10000;
             pointer-events: none;
         }
 
         /* Hide any leaked code or debug info */
         body > *:not(header):not(.bg-animation):not(section):not(footer):not(script):not(style) {
             display: none !important;
+            visibility: hidden !important;
         }
 
         /* Force hide any translate or debug elements */
         [style*="translate"],
         [style*="opacity: 0.3"],
-        .particle-debug,
-        *[class*="debug"] {
+        [style*="generateInsights"],
+        *[innerHTML*="translate"],
+        *[textContent*="translate"] {
             display: none !important;
             visibility: hidden !important;
         }
@@ -993,19 +979,19 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 <div class="stats-grid">
                     <div class="stat-card">
                         <span class="stat-number">3+</span>
-                        <span class="stat-label">Anos de Experiência</span>
+                        <span class="stat-label" data-i18n="stat_experience">Anos de Experiência</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-number">50+</span>
-                        <span class="stat-label">Projetos Entregues</span>
+                        <span class="stat-label" data-i18n="stat_projects">Projetos Entregues</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-number">100%</span>
-                        <span class="stat-label">Satisfação dos Clientes</span>
+                        <span class="stat-label" data-i18n="stat_satisfaction">Satisfação dos Clientes</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-number">24/7</span>
-                        <span class="stat-label">Suporte Disponível</span>
+                        <span class="stat-label" data-i18n="stat_support">Suporte Disponível</span>
                     </div>
                 </div>
             </div>
@@ -1042,7 +1028,7 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                         <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">
                             🇧🇷 <strong>Brasil:</strong> <span data-i18n="availability_br">Horário comercial UTC-3</span><br>
                             🇵🇹 <strong>Portugal:</strong> <span data-i18n="availability_pt">Horário comercial UTC+0</span><br>
-                            📞 <span data-i18n="availability_response">Resposta em até 2 horas | Consultoria inicial gratuita</span>
+                            📞 <span data-i18n="availability_response">Resposta em até 12 horas | Consultoria inicial gratuita</span>
                         </p>
                     </div>
                 </div>
@@ -1223,6 +1209,10 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 tech4_desc: 'Analytics e visualização',
                 tech5_desc: 'Integração de APIs',
                 tech6_desc: 'CI/CD e automação',
+                stat_experience: 'Anos de Experiência',
+                stat_projects: 'Projetos Entregues',
+                stat_satisfaction: 'Satisfação dos Clientes',
+                stat_support: 'Suporte Disponível',
                 about_text1: 'Somos uma consultoria boutique especializada em Engenharia de Dados, focada em entregar soluções que realmente impactam os resultados do seu negócio.',
                 about_text2: 'Nossa expertise abrange desde a arquitetura de infraestrutura de dados até a criação de dashboards executivos, sempre utilizando as melhores práticas e tecnologias mais modernas do mercado.',
                 about_text3: 'Com uma abordagem consultiva e personalizada, ajudamos empresas de todos os portes a construir uma cultura data-driven, automatizar processos e tomar decisões baseadas em dados confiáveis.',
@@ -1231,7 +1221,7 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 contact_locations: 'Localizações',
                 availability_br: 'Horário comercial UTC-3',
                 availability_pt: 'Horário comercial UTC+0',
-                availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
+                availability_response: 'Resposta em até 12 horas | Consultoria inicial gratuita',
                 form_select_service: 'Selecione um serviço',
                 form_option_infra: 'Infraestrutura de Dados',
                 form_option_api: 'Integração de APIs', 
@@ -1315,7 +1305,7 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 contact_locations: 'Localizações',
                 availability_br: 'Horário comercial UTC-3',
                 availability_pt: 'Horário comercial UTC+0',
-                availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita',
+                availability_response: 'Resposta em até 12 horas | Consultoria inicial gratuita',
             },
             'en': {
                 page_title: 'DM² Data Solutions - Data Squared',
@@ -1326,21 +1316,21 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 nav_contact: 'Contact',
                 hero_badge: '🌍 International Data Consulting',
                 hero_title: 'Transforming Data into<br>Business Intelligence',
-                hero_subtitle: 'International consulting specialized in Data Engineering, Power BI and Azure Solutions. We serve companies in Brazil and Europe with excellence and global agility.',
+                hero_subtitle: 'International consulting specialized in Data Engineering, Power BI, and Azure Solutions. We serve companies in Brazil and Europe with excellence and global agility.',
                 hero_cta1: 'Request Consultation',
                 hero_cta2: 'View Services',
                 services_badge: 'Our Services',
                 services_title: 'Complete Data Solutions',
-                services_subtitle: 'From infrastructure to advanced analytics, we offer end-to-end services to transform your data into competitive advantage',
+                services_subtitle: 'From infrastructure to advanced analytics, we offer end-to-end services to turn your data into a competitive advantage.',
                 tech_badge: 'Tech Stack',
                 tech_title: 'Cutting-Edge Technologies',
-                tech_subtitle: 'Proven expertise in leading market technologies to deliver robust and scalable solutions',
+                tech_subtitle: 'Proven expertise in leading market technologies to deliver robust and scalable solutions.',
                 about_badge: 'About Us',
                 about_title: 'DM² Data Solutions',
-                about_subtitle: 'International consulting with presence in Brazil and Portugal, specialized in transforming data into strategic intelligence',
+                about_subtitle: 'International consulting firm with a presence in Brazil and Portugal, specialized in turning data into strategic intelligence.',
                 contact_badge: 'Get in Touch',
                 contact_title: 'Ready to Transform Your Data?',
-                contact_subtitle: 'Let\'s talk about how we can boost your business through intelligent data solutions',
+                contact_subtitle: 'Let’s talk about how we can boost your business through intelligent data solutions.',
                 contact_info_title: 'Contact Information',
                 contact_form_title: 'Request a Consultation',
                 contact_availability: 'Global Availability',
@@ -1352,38 +1342,58 @@ availability_response: 'Resposta em até 2 horas | Consultoria inicial gratuita'
                 form_message: 'Describe Your Project',
                 form_budget: 'Estimated Budget',
                 form_submit: 'Send Request 🚀',
-                footer_slogan: 'Squaring data. Transforming information into exponential results.',
+                footer_slogan: 'Squaring data. Turning information into exponential results.',
                 footer_services: 'Services',
                 footer_tech: 'Technologies',
                 footer_contact: 'Contact',
                 footer_rights: 'All rights reserved.',
                 footer_dev: 'Developed with 💜 using modern technologies',
                 service1_title: 'Data Infrastructure',
-                service1_desc: 'Architecture and implementation of data warehouses, data lakes and robust pipelines using Microsoft Azure and SQL Server to support your business growth.',
+                service1_desc: 'Architecture and implementation of data warehouses, data lakes, and robust pipelines using Microsoft Azure and SQL Server to support your business growth.',
                 service2_title: 'API Integration',
                 service2_desc: 'Connect all your data sources through REST and GraphQL APIs with Python, creating a unified and always up-to-date ecosystem.',
                 service3_title: 'Power BI & Analytics',
-                service3_desc: 'Interactive dashboards and reports that transform complex data into actionable insights for strategic decision making.',
+                service3_desc: 'Interactive dashboards and reports that turn complex data into actionable insights for strategic decision making.',
                 service4_title: 'DevOps Automation',
-                service4_desc: 'CI/CD pipelines with Azure DevOps, Git versioning and complete automation of data processes for maximum efficiency.',
+                service4_desc: 'CI/CD pipelines with Azure DevOps, Git versioning, and complete automation of data processes for maximum efficiency.',
                 service5_title: 'Cloud Migration',
-                service5_desc: 'Secure and optimized migration to Microsoft Azure with focus on performance, scalability and operational cost reduction.',
+                service5_desc: 'Secure and optimized migration to Microsoft Azure with a focus on performance, scalability, and operational cost reduction.',
                 service6_title: 'DBA Administration',
-                service6_desc: 'Specialized management in SQL Server with performance optimization, backup/recovery and 24/7 proactive monitoring.',
-                tech1_desc: 'Scripts, automation and ETL',
+                service6_desc: 'Specialized management in SQL Server with performance optimization, backup/recovery, and 24/7 proactive monitoring.',
+                tech1_desc: 'Scripts, automation, and ETL',
                 tech2_desc: 'DBA and optimization',
                 tech3_desc: 'Cloud solutions',
                 tech4_desc: 'Analytics and visualization',
                 tech5_desc: 'API integration',
                 tech6_desc: 'CI/CD and automation',
+                stat_experience: 'Years of Experience',
+                stat_projects: 'Projects Delivered',
+                stat_satisfaction: 'Client Satisfaction',
+                stat_support: 'Support Available',
                 about_text1: 'We are a boutique consulting firm specialized in Data Engineering, focused on delivering solutions that truly impact your business results.',
-                about_text2: 'Our expertise ranges from data infrastructure architecture to creating executive dashboards, always using the best practices and most modern technologies in the market.',
-                about_text3: 'With a consultative and personalized approach, we help companies of all sizes build a data-driven culture, automate processes and make decisions based on reliable data.',
-                about_cta: 'Let\'s Talk',
+                about_text2: 'Our expertise ranges from data infrastructure architecture to creating executive dashboards, always using the best practices and most modern technologies on the market.',
+                about_text3: 'With a consultative and personalized approach, we help companies of all sizes build a data-driven culture, automate processes, and make decisions based on reliable data.',
+                about_cta: 'Let’s Talk',
                 contact_phones: 'Contacts',
                 contact_locations: 'Locations',
                 availability_br: 'Business hours UTC-3',
                 availability_pt: 'Business hours UTC+0',
+                availability_response: 'Response within 12 hours | Free initial consultation',
+                form_select_service: 'Select a Service',
+                form_option_infra: 'Data Infrastructure',
+                form_option_api: 'API Integration',
+                form_option_bi: 'Power BI & Analytics',
+                form_option_devops: 'DevOps Automation',
+                form_option_migration: 'Azure Migration',
+                form_option_dba: 'DBA Administration',
+                form_option_general: 'General Consulting',
+                form_placeholder: 'Tell us about your current data challenge, project goals, and how we can help...',
+                form_select_budget: 'Select a Budget Range',
+                form_budget_10k: 'Up to € 1,000',
+                form_budget_25k: '€ 1,000 - € 3,000',
+                form_budget_50k: '€ 3,000 - € 8,000',
+                form_budget_plus: 'Above € 8,000',
+                form_budget_recurring: 'Recurring Project',
                 footer_code: 'while (data.exists()) {<br>&nbsp;&nbsp;generateInsights²();<br>}'
             }
         };
